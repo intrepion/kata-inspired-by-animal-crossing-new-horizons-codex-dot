@@ -1,0 +1,2 @@
+# Keep island life local and session paced
+Driftwood Bay uses a deterministic command-driven domain with a Canvas world and DOM menus, and a versioned local save. A server and real-world clock would add account, hosting and time-gating costs; session-paced days preserve an immediately playable loop and allow offline builds. The trade-off is that progress belongs to one browser origin and must be exported to move between devices; world coordinates and furniture identifiers become part of the save compatibility contract.

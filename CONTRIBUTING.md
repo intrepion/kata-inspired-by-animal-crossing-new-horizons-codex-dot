@@ -1,0 +1,2 @@
+# Contributions
+Use strict TypeScript. Game rules live behind public commands in src/game.ts, rendering in src/world.ts, browser/UI effects in src/main.ts. Do not mutate state outside game commands. Test observable results at public commands and save/load boundaries. Keep art, names and dialogue original. DOM controls must have accessible names, visible focus and readable contrast. Avoid external runtime services. Run npm run check before committing.
