@@ -1,4 +1,4 @@
-import { type GameState,type Point,type Furniture,resources,neighbors,home,workshop,fishingSpot,distance,placementValid } from './game';
+import { type GameState,type Point,type Furniture,resources,neighbors,home,workshop,fishingSpot,distance,placementValid,BITE_START_MS,BITE_END_MS } from './game';
 export interface Scene {target:Point|null;placing:Furniture|null;hover:Point|null;fishing:number|null;moving:boolean;reduced:boolean}
 export class World {
  private ctx:CanvasRenderingContext2D; private scale=1; private ox=0; private oy=0;
@@ -49,7 +49,7 @@ export class World {
   if(s.welcomed){drawFurniture('rug',625,580);label('The neighborhood picnic',625,625);ellipse(618,576,7,5,'#f3d58e');ellipse(636,586,6,4,'#f6ecd2');}
   if(scene.target){c.strokeStyle='#fff8df';c.lineWidth=2;c.beginPath();c.ellipse(scene.target.x,scene.target.y,12,6,0,0,Math.PI*2);c.stroke();}
   if(scene.placing&&scene.hover){drawFurniture(scene.placing,scene.hover.x,scene.hover.y,.6);ellipse(scene.hover.x,scene.hover.y+15,35,5,placementValid(s,scene.hover)?'#407c6199':'#b45c5499');}
-  if(scene.fishing!==null){line(s.player.x+10,s.player.y-17,850,345,'#fff2d4',1);const elapsed=time-scene.fishing;const r=10+(elapsed/100)%15;c.strokeStyle=elapsed>=1200&&elapsed<=3600?'#ffe8a3':'#c4ebe0';c.lineWidth=3;c.beginPath();c.ellipse(865,340,r,r*.5,0,0,Math.PI*2);c.stroke();ellipse(865,340,3,4,'#ea8e73');label(elapsed>=1200&&elapsed<=3600?'BITE! Reel in!':'Wait for a bite…',865,309);}
+  if(scene.fishing!==null){line(s.player.x+10,s.player.y-17,850,345,'#fff2d4',1);const elapsed=time-scene.fishing;const r=10+(elapsed/100)%15;c.strokeStyle=elapsed>=BITE_START_MS&&elapsed<=BITE_END_MS?'#ffe8a3':'#c4ebe0';c.lineWidth=3;c.beginPath();c.ellipse(865,340,r,r*.5,0,0,Math.PI*2);c.stroke();ellipse(865,340,3,4,'#ea8e73');label(elapsed>=BITE_START_MS&&elapsed<=BITE_END_MS?'BITE! Reel in!':'Wait for a bite…',865,309);}
   c.setTransform(dpr,0,0,dpr,0,0);
  }
 }

@@ -9,6 +9,9 @@ export interface GameState {
 export type Command = { type: 'move'; x: number; y: number } | {type:'gather'; id:string}
  | {type:'craft';kind:Furniture} | {type:'place';kind:Furniture;x:number;y:number}
  | {type:'reclaim';id:number} | {type:'talk';id:string} | {type:'fulfill';id:string} | {type:'fish';elapsed:number} | {type:'rest'} | {type:'sell'};
+export const BITE_START_MS=1200;
+export const BITE_END_MS=3600;
+export const canReclaim=(s:GameState,p:Point)=>distance(s.player,p)<=110;
 export const fishSpecies=['Sunfin','Ribbon perch','Moon minnow','Copper koi','Sailtail','Starling trout'];
 export const recipes: Record<Furniture, Partial<Record<Item,number>>> = {
  bench:{wood:4,stone:2},lantern:{wood:2,shells:6},stool:{wood:2},planter:{stone:2,fiber:2},rug:{fiber:4},sign:{wood:2,fiber:2}
@@ -64,13 +67,13 @@ export function command(previous:GameState, action:Command):Result {
     return result('A little more you. Your island is growing!');
   }
   if(action.type==='reclaim') {
-    const index=state.decorations.findIndex(d=>d.id===action.id&&distance(d,state.player)<110);
+    const index=state.decorations.findIndex(d=>d.id===action.id&&canReclaim(state,d));
     if(index<0)return result('Walk closer to pick it up.');
     state.bag[state.decorations[index].kind]++;state.decorations.splice(index,1);return result('Back in your pocket, ready for a new spot.');
   }
   if(action.type==='fish') {
     if(distance(state.player,fishingSpot)>95)return result('Cast from the pond’s little wooden dock.');
-    if(!Number.isFinite(action.elapsed)||action.elapsed<1200||action.elapsed>3600)return result('The fish slipped away. Cast again and reel when you see BITE!');
+    if(!Number.isFinite(action.elapsed)||action.elapsed<BITE_START_MS||action.elapsed>BITE_END_MS)return result('The fish slipped away. Cast again and reel when you see BITE!');
     const species=fishSpecies[state.catches++%fishSpecies.length];state.bag.fish++;
     if(!state.collection.includes(species))state.collection.push(species);
     return result(`Caught a ${species}! ${state.collection.length} of ${fishSpecies.length} species in your field guide.`);

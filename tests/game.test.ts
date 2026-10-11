@@ -54,3 +54,8 @@ it('replenishes harvested resources after rest and rejects gathering from afar',
  s=command(s,{type:'move',x:355,y:220}).state;s=command(s,{type:'rest'}).state;
  s=command(s,{type:'move',x:400,y:330}).state;s=command(s,{type:'gather',id:'tree-1'}).state;expect(s.bag.wood).toBe(4);
 });
+it('allows reclaiming a decoration at the advertised 110-unit reach boundary',()=>{
+ let s=createGame();for(const id of ['tree-1','tree-2','rock-1']){const p=id==='tree-1'?{x:400,y:330}:id==='tree-2'?{x:270,y:400}:{x:450,y:560};s=command(s,{type:'move',...p}).state;s=command(s,{type:'gather',id}).state;}
+ s=command(s,{type:'move',x:580,y:285}).state;s=command(s,{type:'craft',kind:'bench'}).state;s=command(s,{type:'move',x:520,y:480}).state;s=command(s,{type:'place',kind:'bench',x:520,y:520}).state;
+ const id=s.decorations[0].id;s=command(s,{type:'move',x:410,y:520}).state;expect(command(s,{type:'reclaim',id}).state.bag.bench).toBe(1);
+});

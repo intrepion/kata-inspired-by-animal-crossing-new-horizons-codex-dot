@@ -2,8 +2,8 @@
 
 ## Automated
 - Strict TypeScript type check passed.
-- Seven tests passed across public game-command and save/load seams: renewable gathering and distance, opening bench quest and one-time reward, fishing timing and collection, request consumption and duplicate prevention, rest, rejected crafting/placement and lossless reclaim, save round-trip and malformed/future save rejection.
-- Vite production build passed. Runtime is approximately 36 KB JS (15 KB gzip), plus 12 KB CSS (3.5 KB gzip).
+- Eight tests passed across public game-command and save/load seams: renewable gathering and distance, opening bench quest and one-time reward, fishing timing and collection, request consumption and duplicate prevention, rest, exact reclaim reach, rejected crafting/placement and lossless reclaim, save round-trip and malformed/future save rejection.
+- Vite production build passed. The built game was also served on 127.0.0.1:4173 and its opening dialogue was smoke-tested in Chrome. Runtime is approximately 36 KB JS (15 KB gzip), plus 12 KB CSS (3.5 KB gzip).
 - Dependency audit: zero known vulnerabilities after selecting current patched Vite 8.3.4 and Vitest 5.0.3.
 
 ## Player-facing Chrome playthrough on this Mac
@@ -16,4 +16,7 @@
 - Visually inspected full desktop and mobile screenshots in docs/screenshots. Fixed phone title overlap and increased directional touch targets to 44 pixels. Fixed journal resource guidance, arrival feedback, keyboard shortcut collision, and nearest-interaction consistency discovered during the playthrough.
 
 ## Limits
-Physical iOS/Android hardware and cross-browser engines were not tested. Audio uses user-triggered Web Audio chimes; no microphone is needed. Export's browser download event timed out in the automation bridge, so a browser export/import round-trip was not confirmed; serialization and validation round-trip is covered by tests. A native Codex project-registration API was unavailable, and Computer Use explicitly disallowed the Codex app. The repository is cloned on this Mac, but was not registered as a sidebar project. Parent-thread checkpoint delivery through send_message_to_thread failed because the delegated cloud source was not found by the local Codex tool.
+Physical iOS/Android hardware and cross-browser engines were not tested. Audio uses user-triggered Web Audio chimes; no microphone is needed. Export's browser download event timed out in the automation bridge, so a browser export/import round-trip was not confirmed; serialization and validation round-trip is covered by tests. The import button opened the supported chooser, but file injection was blocked by the Chrome extension’s missing file-URL permission; that access was not enabled or bypassed. A native Codex project-registration API was unavailable, and Computer Use explicitly disallowed the Codex app. The repository is cloned on this Mac, but was not registered as a sidebar project. Parent-thread checkpoint delivery through send_message_to_thread failed because the delegated cloud source was not found by the local Codex tool.
+
+## Review
+The two independent review axes found three standards heuristics and one keyboard-accessibility issue. Shared timing and reclaim predicates, an avatar map, and a focusable import button address them. See REVIEW.md. Final domain/save tests, type check and production build passed after those changes. Application logs were clean; production log warnings were from an unrelated installed browser extension.
