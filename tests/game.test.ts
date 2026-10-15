@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { createGame, command } from '../src/game';
+import {Rod} from '../src/fishing';
 describe('island gathering', () => {
   it('lets a nearby player gather wood once, until the next island day', () => {
     let s = createGame();
@@ -29,8 +30,9 @@ it('turns gathered materials into a placed welcome bench and opens the picnic on
 it('offers renewable days, consumes neighbor gifts exactly once and rewards a timed catch',()=>{
   let s=createGame();
   s=command(s,{type:'move',x:800,y:375}).state;
-  expect(command(s,{type:'fish',elapsed:200}).state.bag.fish).toBe(0);
-  s=command(s,{type:'fish',elapsed:1800}).state;
+  const rod=new Rod();rod.equipped=true;rod.cast(s,{x:1,y:0});
+  for(let i=0;i<305;i++)rod.tick(.01);
+  s=rod.reel(s).state;
   expect(s.bag.fish).toBe(1);expect(s.collection).toEqual(['Sunfin']);
   s=command(s,{type:'move',x:830,y:535}).state;
   s=command(s,{type:'fulfill',id:'mallow'}).state;

@@ -8,9 +8,7 @@ export interface GameState {
 }
 export type Command = { type: 'move'; x: number; y: number } | {type:'gather'; id:string}
  | {type:'craft';kind:Furniture} | {type:'place';kind:Furniture;x:number;y:number}
- | {type:'reclaim';id:number} | {type:'talk';id:string} | {type:'fulfill';id:string} | {type:'fish';elapsed:number} | {type:'rest'} | {type:'sell'};
-export const BITE_START_MS=1200;
-export const BITE_END_MS=3600;
+ | {type:'reclaim';id:number} | {type:'talk';id:string} | {type:'fulfill';id:string} | {type:'catch';species:string} | {type:'rest'} | {type:'sell'};
 export const canReclaim=(s:GameState,p:Point)=>distance(s.player,p)<=110;
 export const fishSpecies=['Sunfin','Ribbon perch','Moon minnow','Copper koi','Sailtail','Starling trout'];
 export const recipes: Record<Furniture, Partial<Record<Item,number>>> = {
@@ -35,7 +33,7 @@ export const workshop = {x:580,y:285};
 export const fishingSpot = {x:800,y:375};
 export const neighbors = [
   {id:'pip',name:'Pip',species:'otter',x:555,y:420,color:'#b36e45',item:'fruit' as Item,amount:3,reward:20,request:'Three sunpears for a picnic tart. A little sunshine in every slice!',hello:'Oh, a new face! I’m Pip. This bay could use a place to sit together. Make a welcome bench at the worktable, place it on the island, then come find me.'},
-  {id:'mallow',name:'Mallow',species:'rabbit',x:830,y:535,color:'#ede0c4',item:'fish' as Item,amount:1,reward:25,request:'One fish for my seaside supper. I’ll trade you some shells!',hello:'I’m Mallow. I collect quiet moments. The pond is full of them… and fish. Wait for the ripple to say BITE, then reel in.'},
+  {id:'mallow',name:'Mallow',species:'rabbit',x:830,y:535,color:'#ede0c4',item:'fish' as Item,amount:1,reward:25,request:'One fish for my seaside supper. I’ll trade you some shells!',hello:'I’m Mallow. I collect quiet moments. The pond is full of them… and fish. Equip your rod, cast ahead of a shadow and reel only when the bobber goes UNDER.'},
   {id:'juniper',name:'Juniper',species:'fox',x:330,y:575,color:'#cf7952',item:'fiber' as Item,amount:4,reward:18,request:'Four meadow fibers for a woven basket. Gather the little flower patches!',hello:'Juniper, trail keeper, at your service. Pick the flowers for fiber; they’ll bloom again after a good night’s rest. My basket could use a little mending.'},
 ] as const;
 export const distance = (a:Point,b:Point) => Math.hypot(a.x-b.x,a.y-b.y);
@@ -71,12 +69,11 @@ export function command(previous:GameState, action:Command):Result {
     if(index<0)return result('Walk closer to pick it up.');
     state.bag[state.decorations[index].kind]++;state.decorations.splice(index,1);return result('Back in your pocket, ready for a new spot.');
   }
-  if(action.type==='fish') {
-    if(distance(state.player,fishingSpot)>95)return result('Cast from the pond’s little wooden dock.');
-    if(!Number.isFinite(action.elapsed)||action.elapsed<BITE_START_MS||action.elapsed>BITE_END_MS)return result('The fish slipped away. Cast again and reel when you see BITE!');
-    const species=fishSpecies[state.catches++%fishSpecies.length];state.bag.fish++;
-    if(!state.collection.includes(species))state.collection.push(species);
-    return result(`Caught a ${species}! ${state.collection.length} of ${fishSpecies.length} species in your field guide.`);
+  if(action.type==='catch') {
+    if(!fishSpecies.includes(action.species))return result('Unknown fish. Nothing changed.');
+    state.catches++;state.bag.fish++;
+    if(!state.collection.includes(action.species))state.collection.push(action.species);
+    return result(`Caught a ${action.species}! ${state.collection.length} of ${fishSpecies.length} species in your field guide.`);
   }
   if(action.type==='rest') {
     if(distance(state.player,home)>100)return result('Go home to rest and begin a new island day.');

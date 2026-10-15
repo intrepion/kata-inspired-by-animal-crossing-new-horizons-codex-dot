@@ -1,5 +1,6 @@
-import { type GameState,type Point,type Furniture,resources,neighbors,home,workshop,fishingSpot,distance,placementValid,BITE_START_MS,BITE_END_MS } from './game';
-export interface Scene {target:Point|null;placing:Furniture|null;hover:Point|null;fishing:number|null;moving:boolean;reduced:boolean}
+import { type GameState,type Point,type Furniture,resources,neighbors,home,workshop,fishingSpot,distance,placementValid } from './game';
+import {shadows,linePhase,type Line} from './fishing';
+export interface Scene {target:Point|null;placing:Furniture|null;hover:Point|null;fishing:Line|null;moving:boolean;reduced:boolean;rod:boolean;facing:Point}
 export class World {
  private ctx:CanvasRenderingContext2D; private scale=1; private ox=0; private oy=0;
  constructor(public canvas:HTMLCanvasElement){this.ctx=canvas.getContext('2d')!;}
@@ -23,6 +24,8 @@ export class World {
   line(560,420,580,290,'#e6d6a8',35);line(515,465,360,585,'#e6d6a8',32);
   ellipse(898,344,112,83,'#d1c899');ellipse(895,335,105,78,'#76bfc2');ellipse(895,330,96,67,'#80caca');
   for(let i=0;i<7;i++){const y=300+i*10;line(850+i*5,y,878+i*9,y,'#a8ded3',2);}
+  // Original fish silhouettes visibly face the direction in which they can see a bobber.
+  shadows.forEach((fish,i)=>{let x=fish.x,y=fish.y;const cast=scene.fishing;if(cast?.target===i){const f=Math.min(.8,cast.elapsed/cast.biteAt*.8);x+=(cast.point.x-fish.x)*f;y+=(cast.point.y-fish.y)*f;}c.save();c.translate(x,y);c.rotate(Math.atan2(fish.facing.y,fish.facing.x));ellipse(0,0,15,6,'#315f6477');c.fillStyle='#315f6477';c.beginPath();c.moveTo(-12,0);c.lineTo(-24,-8);c.lineTo(-24,8);c.fill();ellipse(10,0,2,2,'#183e46');c.restore();});
   // Lily pads and a little dock.
   for(const [x,y]of [[926,300],[950,355],[880,286]]){ellipse(x,y,11,6,'#599d7b');ellipse(x+2,y-3,3,2,'#f4c8c1');}
   c.fillStyle='#957049';c.fillRect(779,350,65,49);for(let i=0;i<6;i++){c.fillStyle=i%2?'#d1a66e':'#c69c68';c.fillRect(780+i*11,350,9,46);}line(780,350,845,350,'#8c6949',4);
@@ -49,7 +52,9 @@ export class World {
   if(s.welcomed){drawFurniture('rug',625,580);label('The neighborhood picnic',625,625);ellipse(618,576,7,5,'#f3d58e');ellipse(636,586,6,4,'#f6ecd2');}
   if(scene.target){c.strokeStyle='#fff8df';c.lineWidth=2;c.beginPath();c.ellipse(scene.target.x,scene.target.y,12,6,0,0,Math.PI*2);c.stroke();}
   if(scene.placing&&scene.hover){drawFurniture(scene.placing,scene.hover.x,scene.hover.y,.6);ellipse(scene.hover.x,scene.hover.y+15,35,5,placementValid(s,scene.hover)?'#407c6199':'#b45c5499');}
-  if(scene.fishing!==null){line(s.player.x+10,s.player.y-17,850,345,'#fff2d4',1);const elapsed=time-scene.fishing;const r=10+(elapsed/100)%15;c.strokeStyle=elapsed>=BITE_START_MS&&elapsed<=BITE_END_MS?'#ffe8a3':'#c4ebe0';c.lineWidth=3;c.beginPath();c.ellipse(865,340,r,r*.5,0,0,Math.PI*2);c.stroke();ellipse(865,340,3,4,'#ea8e73');label(elapsed>=BITE_START_MS&&elapsed<=BITE_END_MS?'BITE! Reel in!':'Wait for a bite…',865,309);}
+  if(scene.rod){const n=Math.max(.01,Math.hypot(scene.facing.x,scene.facing.y));line(s.player.x+5,s.player.y-15,s.player.x+scene.facing.x/n*26,s.player.y-38+scene.facing.y/n*26,'#76543c',3);}
+  if(scene.fishing){const cast=scene.fishing,phase=linePhase(cast),p=cast.point;line(s.player.x+10,s.player.y-25,p.x,p.y,'#fff2d4',1);const r=phase==='under'?15:phase==='nibble'?9:5;c.strokeStyle=phase==='under'?'#ffda77':'#d7eee3';c.lineWidth=3;c.beginPath();c.ellipse(p.x,p.y,r,r*.5,0,0,Math.PI*2);c.stroke();if(phase!=='under')ellipse(p.x,p.y,3,5,'#e67755');label(phase==='under'?'UNDER! Reel!':phase==='nibble'?'Nibble… wait':cast.target===null?'Fish cannot see this cast':'Watch the bobber',p.x,p.y-25);}
+
   c.setTransform(dpr,0,0,dpr,0,0);
  }
 }
