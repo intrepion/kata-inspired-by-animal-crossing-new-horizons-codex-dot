@@ -62,3 +62,7 @@ This is a polished small island game, with session-paced days, compact repeatabl
 Equip the rod with **R** or **Equip rod**. Walk to the pond dock (Field guide → Walk to the pond dock); click water to face a shadow, then **E** casts a fixed distance ahead. The bobber must land in front of the fish’s head. False nibbles are not a catch cue: wait until the bobber visibly disappears and **UNDER!** appears, then press E within 0.85 seconds. Early/late reels fail. Movement, menus, Escape, blur and reload cancel the cast. Put the rod away with R to gather/talk normally.
 
 This replaces the dock’s fixed catch timer. Two original silhouettes and seeded nibble counts make positioning and reaction meaningful. Catch/collection/selling use the existing island inventory. All existing v1 saves and keys are retained; rod, facing and cast state are transient, so no old island reset or offline catch occurs. The flat island camera and session-paced days remain. [Research, seams and QA route](docs/fidelity-fishing.md).
+
+## Play online
+
+[Play the hosted game](https://intrepion.github.io/kata-inspired-by-animal-crossing-new-horizons-codex-dot/)
