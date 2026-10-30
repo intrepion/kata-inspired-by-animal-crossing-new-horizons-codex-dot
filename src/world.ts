@@ -1,8 +1,13 @@
 import { type GameState,type Point,type Furniture,resources,neighbors,home,workshop,fishingSpot,distance,placementValid } from './game';
 import {shadows,linePhase,type Line} from './fishing';
 export interface Scene {target:Point|null;placing:Furniture|null;hover:Point|null;fishing:Line|null;moving:boolean;reduced:boolean;rod:boolean;facing:Point}
+export function cameraTransform(w:number,h:number,player:Point,zoom:number){
+ const scale=(w<650?.9:Math.min(w/1200,h/850))*zoom,follow=w<650||zoom>1;
+ return {scale,ox:w/2-(follow?player.x:600)*scale,oy:h/2-(follow?player.y:425)*scale};
+}
 export class World {
- private ctx:CanvasRenderingContext2D; private scale=1; private ox=0; private oy=0;
+ private ctx:CanvasRenderingContext2D; private scale=1; private ox=0; private oy=0; private zoom=1;
+ setZoom(zoom:number){this.zoom=Math.max(1,Math.min(2,zoom));}
  constructor(public canvas:HTMLCanvasElement){this.ctx=canvas.getContext('2d')!;}
  toWorld(x:number,y:number):Point {const r=this.canvas.getBoundingClientRect();return {x:(x-r.left-this.ox)/this.scale,y:(y-r.top-this.oy)/this.scale};}
  draw(s:GameState,scene:Scene,time:number){
@@ -10,7 +15,7 @@ export class World {
   if(this.canvas.width!==Math.round(w*dpr)||this.canvas.height!==Math.round(h*dpr)){this.canvas.width=Math.round(w*dpr);this.canvas.height=Math.round(h*dpr);}
   c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,w,h);
   const gradient=c.createLinearGradient(0,0,w,h);gradient.addColorStop(0,'#8dcac4');gradient.addColorStop(1,'#5eaaa9');c.fillStyle=gradient;c.fillRect(0,0,w,h);
-  this.scale=w<650?.9:Math.min(w/1200,h/850);this.ox=w/2-(w<650?s.player.x:600)*this.scale;this.oy=h/2-(w<650?s.player.y:425)*this.scale;
+  const transform=cameraTransform(w,h,s.player,this.zoom);this.scale=transform.scale;this.ox=transform.ox;this.oy=transform.oy;
   c.translate(this.ox,this.oy);c.scale(this.scale,this.scale);
   const ellipse=(x:number,y:number,rx:number,ry:number,color:string)=>{c.fillStyle=color;c.beginPath();c.ellipse(x,y,rx,ry,0,0,Math.PI*2);c.fill();};
   const line=(x:number,y:number,x2:number,y2:number,color:string,width:number)=>{c.strokeStyle=color;c.lineWidth=width;c.lineCap='round';c.beginPath();c.moveTo(x,y);c.lineTo(x2,y2);c.stroke();};

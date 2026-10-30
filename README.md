@@ -66,3 +66,7 @@ This replaces the dock’s fixed catch timer. Two original silhouettes and seede
 ## Play online
 
 [Play the hosted game](https://intrepion.github.io/kata-inspired-by-animal-crossing-new-horizons-codex-dot/)
+
+Use **Zoom in** to follow your character more closely while exploring, fishing, or decorating; **Zoom out** restores the overview. Tap-to-walk and placement use the same camera transform.
+
+An experimental Three.js island view is available at `?view=three`. Its ground picking feeds the existing walk, fishing and furniture placement logic; saved island data is shared with the default view. The original view remains the default pending browser playtesting. The prototype lacks some original art, labels, and fishing animation. Three.js 0.180.0 is bundled under its MIT license.
