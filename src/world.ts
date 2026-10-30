@@ -1,6 +1,6 @@
 import { type GameState,type Point,type Furniture,resources,neighbors,home,workshop,fishingSpot,distance,placementValid } from './game';
 import {shadows,linePhase,type Line} from './fishing';
-export interface Scene {target:Point|null;placing:Furniture|null;hover:Point|null;fishing:Line|null;moving:boolean;reduced:boolean;rod:boolean;facing:Point}
+export interface Scene {target:Point|null;placing:Furniture|null;hover:Point|null;fishing:Line|null;moving:boolean;reduced:boolean;rod:boolean;facing:Point;effect:{point:Point;kind:string;until:number}|null}
 export function cameraTransform(w:number,h:number,player:Point,zoom:number){
  const scale=(w<650?.9:Math.min(w/1200,h/850))*zoom,follow=w<650||zoom>1;
  return {scale,ox:w/2-(follow?player.x:600)*scale,oy:h/2-(follow?player.y:425)*scale};
@@ -60,6 +60,7 @@ export class World {
   if(scene.rod){const n=Math.max(.01,Math.hypot(scene.facing.x,scene.facing.y));line(s.player.x+5,s.player.y-15,s.player.x+scene.facing.x/n*26,s.player.y-38+scene.facing.y/n*26,'#76543c',3);}
   if(scene.fishing){const cast=scene.fishing,phase=linePhase(cast),p=cast.point;line(s.player.x+10,s.player.y-25,p.x,p.y,'#fff2d4',1);const r=phase==='under'?15:phase==='nibble'?9:5;c.strokeStyle=phase==='under'?'#ffda77':'#d7eee3';c.lineWidth=3;c.beginPath();c.ellipse(p.x,p.y,r,r*.5,0,0,Math.PI*2);c.stroke();if(phase!=='under')ellipse(p.x,p.y,3,5,'#e67755');label(phase==='under'?'UNDER! Reel!':phase==='nibble'?'Nibble… wait':cast.target===null?'Fish cannot see this cast':'Watch the bobber',p.x,p.y-25);}
 
+  if(scene.effect&&time<scene.effect.until){const e=scene.effect,age=1-(e.until-time)/1400;c.save();c.globalAlpha=Math.max(0,1-age);c.font='bold 18px sans-serif';c.textAlign='center';c.fillStyle='#fff8df';c.fillText(e.kind==='tree'?'✦  🍐  ✦':e.kind==='rock'?'✦  🪨  ✦':'✦  🌿  ✦',e.point.x,e.point.y-55-age*35);c.restore();}
   c.setTransform(dpr,0,0,dpr,0,0);
  }
 }

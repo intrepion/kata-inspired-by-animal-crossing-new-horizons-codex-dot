@@ -70,3 +70,5 @@ This replaces the dock’s fixed catch timer. Two original silhouettes and seede
 Use **Zoom in** to follow your character more closely while exploring, fishing, or decorating; **Zoom out** restores the overview. Tap-to-walk and placement use the same camera transform.
 
 An experimental Three.js island view is available at `?view=three`. Its ground picking feeds the existing walk, fishing and furniture placement logic; saved island data is shared with the default view. The original view remains the default pending browser playtesting. The prototype lacks some original art, labels, and fishing animation. Three.js 0.180.0 is bundled under its MIT license.
+
+The default island uses a close, fixed-angle character-following 3D view; `?view=classic` keeps the original illustrated view. Both use the same island save. The island remains a small original prototype: resources are gathered directly rather than dropped as separate items. Craft a fishing rod from wood and fiber at the worktable; existing saves retain access to their rod.

@@ -10,3 +10,6 @@ it('rejects forged collection, duplicate records, unknown furniture and invalid 
  const s=createGame();
  for(const changed of [{collection:['Imaginary fish']},{gathered:['tree-1','tree-1']},{friendships:{pip:0,mallow:0}},{decorations:[{id:1,kind:'castle',x:520,y:520}],nextId:2},{player:{x:895,y:335}},{nextId:0},{catches:-1}])expect(decodeSave(JSON.stringify({...s,...changed})).ok).toBe(false);
 });
+it('migrates pre-rod saves without taking away the previously available fishing rod',()=>{
+ const s=createGame();const old=JSON.parse(encodeSave(s));delete old.bag.rod;const loaded=decodeSave(JSON.stringify(old));expect(loaded.ok).toBe(true);if(loaded.ok){expect(loaded.state.bag.rod).toBe(1);expect(loaded.state.player).toEqual(s.player);}
+});

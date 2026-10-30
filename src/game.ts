@@ -1,4 +1,4 @@
-export type Item = 'wood' | 'stone' | 'fiber' | 'fruit' | 'fish' | 'shells' | 'bench' | 'lantern' | 'stool' | 'planter' | 'rug' | 'sign';
+export type Item = 'wood' | 'stone' | 'fiber' | 'fruit' | 'fish' | 'shells' | 'bench' | 'lantern' | 'stool' | 'planter' | 'rug' | 'sign' | 'rod';
 export type Furniture = 'bench' | 'lantern' | 'stool' | 'planter' | 'rug' | 'sign';
 export interface Point { x: number; y: number }
 export interface GameState {
@@ -7,19 +7,19 @@ export interface GameState {
   friendships: Record<string, number>; fulfilled: string[]; welcomed: boolean; collection: string[]; catches: number;
 }
 export type Command = { type: 'move'; x: number; y: number } | {type:'gather'; id:string}
- | {type:'craft';kind:Furniture} | {type:'place';kind:Furniture;x:number;y:number}
+ | {type:'craft';kind:Furniture|'rod'} | {type:'place';kind:Furniture;x:number;y:number}
  | {type:'reclaim';id:number} | {type:'talk';id:string} | {type:'fulfill';id:string} | {type:'catch';species:string} | {type:'rest'} | {type:'sell'};
 export const canReclaim=(s:GameState,p:Point)=>distance(s.player,p)<=110;
 export const fishSpecies=['Sunfin','Ribbon perch','Moon minnow','Copper koi','Sailtail','Starling trout'];
-export const recipes: Record<Furniture, Partial<Record<Item,number>>> = {
- bench:{wood:4,stone:2},lantern:{wood:2,shells:6},stool:{wood:2},planter:{stone:2,fiber:2},rug:{fiber:4},sign:{wood:2,fiber:2}
+export const recipes: Record<Furniture|'rod', Partial<Record<Item,number>>> = {
+ rod:{wood:2,fiber:2},bench:{wood:4,stone:2},lantern:{wood:2,shells:6},stool:{wood:2},planter:{stone:2,fiber:2},rug:{fiber:4},sign:{wood:2,fiber:2}
 };
 export const canAfford=(s:GameState,cost:Partial<Record<Item,number>>) => Object.entries(cost).every(([i,n])=>s.bag[i as Item]>=n!);
 export const placementValid=(s:GameState,p:Point) => walkable(p) && distance(s.player,p)<=110 && s.decorations.every(d=>distance(d,p)>45) && [...neighbors,...resources,home,workshop,fishingSpot].every(o=>distance(o,p)>48);
 export interface Result { state: GameState; message: string }
-export const items: Item[] = ['wood','stone','fiber','fruit','fish','shells','bench','lantern','stool','planter','rug','sign'];
+export const items: Item[] = ['wood','stone','fiber','fruit','fish','shells','bench','lantern','stool','planter','rug','sign','rod'];
 export const furniture: Furniture[] = ['bench','lantern','stool','planter','rug','sign'];
-export const names: Record<Item,string> = {wood:'Driftwood',stone:'Pebbles',fiber:'Meadow fiber',fruit:'Sunpears',fish:'Fish',shells:'Shells',bench:'Welcome bench',lantern:'Glow lantern',stool:'Log stool',planter:'Flower planter',rug:'Picnic blanket',sign:'Trail sign'};
+export const names: Record<Item,string> = {wood:'Driftwood',stone:'Pebbles',fiber:'Meadow fiber',fruit:'Sunpears',fish:'Fish',shells:'Shells',bench:'Welcome bench',lantern:'Glow lantern',stool:'Log stool',planter:'Flower planter',rug:'Picnic blanket',sign:'Trail sign',rod:'Fishing rod'};
 export const resources = [
   {id:'tree-1',x:400,y:330,kind:'tree'}, {id:'tree-2',x:270,y:400,kind:'tree'},
   {id:'tree-3',x:710,y:560,kind:'tree'}, {id:'tree-4',x:930,y:590,kind:'tree'},
@@ -55,7 +55,7 @@ export function command(previous:GameState, action:Command):Result {
     const cost=recipes[action.kind];
     if(!cost || !canAfford(state,cost)) return result('A few more materials, then we can make it!');
     for(const [i,n] of Object.entries(cost)) state.bag[i as Item]-=n!;
-    state.bag[action.kind]++;return result(`Made a ${names[action.kind].toLowerCase()}! Open Decorate to place it.`);
+    state.bag[action.kind]++;return result(action.kind==='rod'?'Made a fishing rod! Press R to equip it at the pond.':`Made a ${names[action.kind].toLowerCase()}! Open Decorate to place it.`);
   }
   if(action.type==='place') {
     if(!furniture.includes(action.kind)||state.bag[action.kind]<1) return result('Craft this decoration first.');
