@@ -28,7 +28,7 @@ jobs:
         env:
           CAPTURE_OUTPUT: capture-output
         run: |
-          export GAME_SOURCE_COMMIT="$(git rev-parse HEAD^)"
+          export GAME_SOURCE_COMMIT="2630ac2e9f210d4decedec57a8a8fa0738cc9f2a"
           python3 -m http.server 4278 --bind 127.0.0.1 --directory capture-site > /tmp/driftwood-http.log 2>&1 &
           server_pid=$!
           trap 'kill "$server_pid"' EXIT
