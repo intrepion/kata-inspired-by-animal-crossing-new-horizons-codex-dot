@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "gameId": "kata-inspired-by-animal-crossing-new-horizons-codex-dot",
+  "playUrl": "https://intrepion.github.io/kata-inspired-by-animal-crossing-new-horizons-codex-dot/",
+  "screenshots": [
+    {
+      "path": "arcade/screenshots/view-01.jpg",
+      "sha256": "c2117814f782c9958eea1de0dc6dd7cdaccd707ac8e5d8ac1f3d7c13685c07a9",
+      "alt": "Gameplay capture 1",
+      "provenance": {
+        "kind": "existing_repository_capture",
+        "sourcePath": "docs/screenshots/desktop.jpg",
+        "deployedBuild": null,
+        "captureDate": null
+      }
+    },
+    {
+      "path": "arcade/screenshots/view-02.jpg",
+      "sha256": "da18e9407b48d82d91ea55e0c52f904404a9e9c3b915b15fdee2c6ba8ecdae08",
+      "alt": "Gameplay capture 2",
+      "provenance": {
+        "kind": "existing_repository_capture",
+        "sourcePath": "docs/qa/fidelity-2026-10-15/caught-sunfin.jpg",
+        "deployedBuild": null,
+        "captureDate": null
+      }
+    }
+  ]
+}
