@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "workflowCommit": "af926ae8fbb2b4714f02da9e0f255e65653584a2",
+  "sourceCommit": "2630ac2e9f210d4decedec57a8a8fa0738cc9f2a",
+  "runId": "41437401663",
+  "url": "http://127.0.0.1:4278/",
+  "inputs": {
+    "index.html": "34a2ec16485e8356530e1d57b97b5500348bbc1e26066299e54cc6b788541a04",
+    "assets/index-B2XxlUwp.js": "b2abf42f6f11af61a6d92f94e2694cce6bcfb43f7578d0e60814cfe04a9f3a48",
+    "assets/index-DJLJ8snP.css": "94926d69c0fa049c27bf8e1a11c121af9f3d9378901c680e99e7eca4ce71b960",
+    "assets/world-three-CsLtXhBD.js": "f1a318c5db4037472d2412b45775850e2ab5234f1f9dba1820bb3f197e94ea59"
+  },
+  "browser": "153.0.8010.12",
+  "viewport": {
+    "width": 1280,
+    "height": 1000
+  },
+  "screenshots": [
+    "driftwood-01.png",
+    "driftwood-02.png"
+  ]
+}
