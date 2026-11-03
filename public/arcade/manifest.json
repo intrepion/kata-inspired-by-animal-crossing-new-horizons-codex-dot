@@ -4,67 +4,45 @@
   "playUrl": "https://intrepion.github.io/kata-inspired-by-animal-crossing-new-horizons-codex-dot/",
   "screenshots": [
     {
-      "path": "arcade/screenshots/view-01.jpg",
-      "sha256": "c2117814f782c9958eea1de0dc6dd7cdaccd707ac8e5d8ac1f3d7c13685c07a9",
-      "alt": "Gameplay capture 1",
-      "provenance": {
-        "kind": "existing_repository_capture",
-        "sourcePath": "docs/screenshots/desktop.jpg",
-        "deployedBuild": null,
-        "captureDate": null
-      }
-    },
-    {
-      "path": "arcade/screenshots/view-02.jpg",
-      "sha256": "da18e9407b48d82d91ea55e0c52f904404a9e9c3b915b15fdee2c6ba8ecdae08",
-      "alt": "Gameplay capture 2",
-      "provenance": {
-        "kind": "existing_repository_capture",
-        "sourcePath": "docs/qa/fidelity-2026-10-15/caught-sunfin.jpg",
-        "deployedBuild": null,
-        "captureDate": null
-      }
-    },
-    {
-      "path": "arcade/screenshots/ci-20261102-01.jpg",
-      "sha256": "03c4a23d300b8e375155207cd234092faad038e3255eafd68f6cb34d6e7b0818",
-      "alt": "Driftwood Bay gameplay, view 1",
+      "path": "arcade/screenshots/review-20261103-01.jpg",
+      "sha256": "c0a8203cd1367ca0cfa5df639aec865f7542e11f91e746325c79bc5ef523c5d2",
+      "alt": "Driftwood Bay gameplay after the mechanics update, view 1",
       "provenance": {
         "kind": "ci_gameplay_capture",
-        "sourcePath": "arcade/capture-evidence/ci-20261102-01.png",
-        "sourceSha256": "1e1949910e04abee4ee1369087abf7a7b694e026d2fd2515c460aca2f1aa8fcb",
-        "captureCommit": "2630ac2e9f210d4decedec57a8a8fa0738cc9f2a",
-        "workflowRunId": "41437401663",
+        "sourcePath": "arcade/capture-evidence/review-20261103-01.png",
+        "sourceSha256": "f3b30680b4cc903409ffb0402c719d3d8ee1faaf19aa86e4ca5f4bb97f72a834",
+        "captureCommit": "c9cbc2c47a61771ab2e3fdecab2c1ef6b999a46d",
+        "workflowRunId": "41675256060",
         "inputHashes": {
-          "index.html": "34a2ec16485e8356530e1d57b97b5500348bbc1e26066299e54cc6b788541a04",
-          "assets/index-B2XxlUwp.js": "b2abf42f6f11af61a6d92f94e2694cce6bcfb43f7578d0e60814cfe04a9f3a48",
+          "index.html": "8ade19a1f8b9bb79d2e1ba0410d80e7b7af126c96fff780beac04a111947158a",
           "assets/index-DJLJ8snP.css": "94926d69c0fa049c27bf8e1a11c121af9f3d9378901c680e99e7eca4ce71b960",
-          "assets/world-three-CsLtXhBD.js": "f1a318c5db4037472d2412b45775850e2ab5234f1f9dba1820bb3f197e94ea59"
+          "assets/index-Fuscxs95.js": "9aae9b59fbb8897166d26eb17b08876316ae6db75abfa553cefd3e77c42ce438",
+          "assets/world-three-BBIDUXu3.js": "24b999036f766a19cd6cfec697f557c3b818067136b344cb663382a9c1ed159a"
         },
-        "publishedFilesVerifiedAt": "2026-11-02T19:01:20Z",
-        "captureRecordPath": "arcade/capture-evidence/ci-20261102-record.json",
-        "captureRecordSha256": "03571e9674637af6bc68c8dad5b8d339f22f4d262358c32b7603a39e95248f4a"
+        "publishedFilesVerifiedAt": "2026-11-03T16:39:50Z",
+        "captureRecordPath": "arcade/capture-evidence/review-20261103-record.json",
+        "captureRecordSha256": "291903e6accb8c0e4bce5fd11df3d882058c4f426026dc15fd4352e4359f2193"
       }
     },
     {
-      "path": "arcade/screenshots/ci-20261102-02.jpg",
-      "sha256": "4c7f42ff54ad082d4f5421908e0cd32f29d54a67f270af3d079e70a812a32931",
-      "alt": "Driftwood Bay gameplay, view 2",
+      "path": "arcade/screenshots/review-20261103-02.jpg",
+      "sha256": "4e5f6770355415ac67bc8ca189b8f34d71021f783a0c3a6225fb0b5c0c3bb7d6",
+      "alt": "Driftwood Bay gameplay after the mechanics update, view 2",
       "provenance": {
         "kind": "ci_gameplay_capture",
-        "sourcePath": "arcade/capture-evidence/ci-20261102-02.png",
-        "sourceSha256": "e4a36d7aa9e2ce14e2ebfb1b96b9a7fa965b14d5e74b12998b5fd309e8e7dc3f",
-        "captureCommit": "2630ac2e9f210d4decedec57a8a8fa0738cc9f2a",
-        "workflowRunId": "41437401663",
+        "sourcePath": "arcade/capture-evidence/review-20261103-02.png",
+        "sourceSha256": "bc1469397b6fa88dee11b2e8f48b56fe2d338cc9a472f8e36192be7673794649",
+        "captureCommit": "c9cbc2c47a61771ab2e3fdecab2c1ef6b999a46d",
+        "workflowRunId": "41675256060",
         "inputHashes": {
-          "index.html": "34a2ec16485e8356530e1d57b97b5500348bbc1e26066299e54cc6b788541a04",
-          "assets/index-B2XxlUwp.js": "b2abf42f6f11af61a6d92f94e2694cce6bcfb43f7578d0e60814cfe04a9f3a48",
+          "index.html": "8ade19a1f8b9bb79d2e1ba0410d80e7b7af126c96fff780beac04a111947158a",
           "assets/index-DJLJ8snP.css": "94926d69c0fa049c27bf8e1a11c121af9f3d9378901c680e99e7eca4ce71b960",
-          "assets/world-three-CsLtXhBD.js": "f1a318c5db4037472d2412b45775850e2ab5234f1f9dba1820bb3f197e94ea59"
+          "assets/index-Fuscxs95.js": "9aae9b59fbb8897166d26eb17b08876316ae6db75abfa553cefd3e77c42ce438",
+          "assets/world-three-BBIDUXu3.js": "24b999036f766a19cd6cfec697f557c3b818067136b344cb663382a9c1ed159a"
         },
-        "publishedFilesVerifiedAt": "2026-11-02T19:01:20Z",
-        "captureRecordPath": "arcade/capture-evidence/ci-20261102-record.json",
-        "captureRecordSha256": "03571e9674637af6bc68c8dad5b8d339f22f4d262358c32b7603a39e95248f4a"
+        "publishedFilesVerifiedAt": "2026-11-03T16:39:50Z",
+        "captureRecordPath": "arcade/capture-evidence/review-20261103-record.json",
+        "captureRecordSha256": "291903e6accb8c0e4bce5fd11df3d882058c4f426026dc15fd4352e4359f2193"
       }
     }
   ]
