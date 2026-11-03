@@ -1,5 +1,7 @@
 # Driftwood Bay
 
+[Kata Arcade](https://intrepion.github.io/)
+
 A small island. A slower kind of day. An original cozy island-life game inspired by the warmth, gathering, crafting, friendship and decorating of Animal Crossing: New Horizons. All island art, characters, dialogue, names and synthesized chimes are original; this project is unaffiliated with Nintendo.
 
 ![Driftwood Bay desktop](docs/screenshots/desktop.jpg)
