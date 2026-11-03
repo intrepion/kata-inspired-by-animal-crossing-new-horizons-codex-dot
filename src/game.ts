@@ -2,7 +2,7 @@ export type Item = 'wood' | 'stone' | 'fiber' | 'fruit' | 'fish' | 'shells' | 'b
 export type Furniture = 'bench' | 'lantern' | 'stool' | 'planter' | 'rug' | 'sign';
 export interface Point { x: number; y: number }
 export interface GameState {
-  version: 1; day: number; player: Point; bag: Record<Item, number>; gathered: string[];
+  version: 1; day: number; calendarDay?:string; player: Point; bag: Record<Item, number>; gathered: string[];
   decorations: (Point & {id: number; kind: Furniture})[]; nextId: number;
   friendships: Record<string, number>; fulfilled: string[]; welcomed: boolean; collection: string[]; catches: number;
 }

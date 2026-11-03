@@ -23,7 +23,7 @@ Open the URL printed in your terminal, normally **http://127.0.0.1:5173**. Keep 
 4. Open Decorate, choose the bench, and tap open ground nearby. You can also walk to a clear spot and press P to place it ahead.
 5. Tell Pip. The picnic appears and you earn 40 shells.
 
-Then try the pond dock: cast a line, wait for **BITE**, and reel in. Mallow will trade shells and friendship for a fish. Juniper needs meadow fiber, Pip needs sunpears, and there are six furniture recipes and six fish species to discover. Rest at home whenever you want a new island day; resources and neighbor requests replenish, while progress stays.
+Then try the pond dock: cast a line, wait for **BITE**, and reel in. Mallow will trade shells and friendship for a fish. Juniper needs meadow fiber, Pip needs sunpears, and there are six furniture recipes and six fish species to discover. Returning on a later local calendar date refreshes gathering spots and neighbor favors once; first use of an older save records the date without resetting it. Rest at home whenever you want an early new island day; resources and neighbor requests replenish, while progress stays.
 
 ## Controls
 
